@@ -11,8 +11,7 @@ Python script that encrypt and decrypt using aes base64 based from crypto-js
 # Usage
 
 ```
-  python main.py
-
+ python main.py
 ```
 
 # Installation issue
