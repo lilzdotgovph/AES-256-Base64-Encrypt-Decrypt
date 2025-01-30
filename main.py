@@ -86,12 +86,12 @@ def get_started():
         if selected_2 == "1":
             plaintext = input("Enter plaintext:")
             encrypted_text = encrypt_aes(plaintext,key)
-            print("Encrypted: ", encrypted_text)
+            print("\nEncrypted: ", encrypted_text)
             break
         elif selected_2 == "2":
             ciphertext = input("Enter ciphertext:")
             decrypted_text = decrypt_aes(ciphertext,key)
-            print("Decrypted: ", decrypted_text)
+            print("\nDecrypted: ", decrypted_text)
             break
         else:
             print("Invalid input!")
