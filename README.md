@@ -1,5 +1,5 @@
 # AES-256-Base64-Encrypt-Decrypt
-Python script that encrypt and decrypt using aes base64 based from crypto-js
+Python script that encrypts and decrypts Base64 AES-256 based from crypto-js
 
 # Installation of dependency
 
