@@ -2,8 +2,9 @@
 Python script that encrypt and decrypt using aes base64 based from crypto-js
 
 Install dependency
+1.
 
-1. pip install -r requirements.txt
+  pip install -r requirements.txt
 
 If you are having issues with python virtual environment, follow the steps below:
 
