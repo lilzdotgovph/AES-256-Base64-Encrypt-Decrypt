@@ -55,7 +55,7 @@ def decrypt_aes(encrypted_base64, key):
         return f"Error: {str(e)}"
 
 def get_started():
-    print("Choose the key you want to use below: \nA = DYkdjbnkhfhaYu8x1237jasx\nB = VR8bjM0FLBWpgXqectQjrAujMzvCz33v\nC = ZLelkzxjkerdYu9x2543avhf\nD = VVydtyskjintYu3x7493avgk")
+    print("Choose the key you want to use below: \nA = DYkdjbnkhfhaYu8x1237jasx\nB = VR8bjM0FLBWpgXqectQjrAujMzvCz33v\nC = ZLelkzxjkerdYu9x2543avhf\nD = VVydtyskjintYu3x7493avgk\nFor Avega, please choose below:\nE = UXtcjaskhfhaYu8x1237jasx\nF = r1ieFutX5nkzeB0fdNEiUBN71HQboLaP\nG = ZLelkzxjkerdYu9x2543avhf")
     while True:
         selected = input("Select:")
         if selected == "A":
@@ -69,6 +69,15 @@ def get_started():
             break
         elif selected == "D":
             key = "VVydtyskjintYu3x7493avgk"
+            break
+        elif selected == "E":
+            key = "UXtcjaskhfhaYu8x1237jasx"
+            break
+        elif selected == "F":
+            key = "r1ieFutX5nkzeB0fdNEiUBN71HQboLaP"
+            break
+        elif selected == "G":
+            key = "ZLelkzxjkerdYu9x2543avhf"
             break
         else:
             print("Invalid input!")
