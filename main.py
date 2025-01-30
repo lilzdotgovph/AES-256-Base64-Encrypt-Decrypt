@@ -1,9 +1,20 @@
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
+from dotenv import load_dotenv
 import base64
 import hashlib
+import os
+load_dotenv()
 
+
+key_a = os.getenv('KEY_A')
+key_b = os.getenv('KEY_B')
+key_c = os.getenv('KEY_C')
+key_d = os.getenv('KEY_D')
+key_e = os.getenv('KEY_E')
+key_f = os.getenv('KEY_F')
+key_g = os.getenv('KEY_G')
 # Salt used by crypto-js (fixed value)
 CRYPTOJS_SALT = b"Salted__"
 
@@ -59,25 +70,25 @@ def get_started():
     while True:
         selected = input("Select:")
         if selected == "A":
-            key = "DYkdjbnkhfhaYu8x1237jasx"
+            key = key_a
             break
         elif selected == "B":
-            key = "VR8bjM0FLBWpgXqectQjrAujMzvCz33v"
+            key = key_b
             break
         elif selected == "C":
-            key = "ZLelkzxjkerdYu9x2543avhf"
+            key = key_c
             break
         elif selected == "D":
-            key = "VVydtyskjintYu3x7493avgk"
+            key = key_d
             break
         elif selected == "E":
-            key = "UXtcjaskhfhaYu8x1237jasx"
+            key = key_e
             break
         elif selected == "F":
-            key = "r1ieFutX5nkzeB0fdNEiUBN71HQboLaP"
+            key = key_f
             break
         elif selected == "G":
-            key = "ZLelkzxjkerdYu9x2543avhf"
+            key = key_g
             break
         else:
             print("Invalid input!")
