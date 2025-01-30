@@ -7,7 +7,7 @@ import hashlib
 import os
 load_dotenv()
 
-
+# Variables for KEYS
 key_a = os.getenv('KEY_A')
 key_b = os.getenv('KEY_B')
 key_c = os.getenv('KEY_C')
@@ -66,7 +66,7 @@ def decrypt_aes(encrypted_base64, key):
         return f"Error: {str(e)}"
 
 def get_started():
-    print("Choose the key you want to use below: \nA = DYkdjbnkhfhaYu8x1237jasx\nB = VR8bjM0FLBWpgXqectQjrAujMzvCz33v\nC = ZLelkzxjkerdYu9x2543avhf\nD = VVydtyskjintYu3x7493avgk\nFor Avega, please choose below:\nE = UXtcjaskhfhaYu8x1237jasx\nF = r1ieFutX5nkzeB0fdNEiUBN71HQboLaP\nG = ZLelkzxjkerdYu9x2543avhf")
+    print("Choose the key you want to use below: \nA = " + key_a + "\nB = " + key_b + "\nC = " + key_c + "\nD = " + key_d + "\nFor Avega, please choose below:\nE = " + key_e + "\nF = " + key_f + "\nG = " + key_g +"")
     while True:
         selected = input("Select:")
         if selected == "A":
@@ -108,6 +108,4 @@ def get_started():
             print("Invalid input!")
 
 
-# Run the test
-#test_encryption_decryption()
 get_started()
