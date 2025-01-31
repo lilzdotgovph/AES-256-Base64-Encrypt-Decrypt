@@ -1,12 +1,20 @@
-# AES-Base64-Encrypt-Decrypt
-Python script that encrypt and decrypt using aes base64 based from crypto-js
+# AES-256-Base64-Encrypt-Decrypt
+Python script that encrypts and decrypts Base64 AES-256 based from crypto-js
 
-# Install dependency
+# Installation of dependency
 
 1. Run command
 ```
   pip install -r requirements.txt
 ```
+
+# Usage
+
+```
+ python main.py
+```
+
+# Installation issue
 If you are having issues with python virtual environment, follow the steps below:
 
 1. Inside the folder, run command ```python -m venv myenv```
