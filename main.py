@@ -15,6 +15,13 @@ key_d = os.getenv('KEY_D')
 key_e = os.getenv('KEY_E')
 key_f = os.getenv('KEY_F')
 key_g = os.getenv('KEY_G')
+key_h = os.getenv('KEY_H')
+key_i = os.getenv('KEY_I')
+key_j = os.getenv('KEY_J')
+key_k = os.getenv('KEY_K')
+key_l = os.getenv('KEY_L')
+key_m = os.getenv('KEY_M')
+key_n = os.getenv('KEY_N')
 # Salt used by crypto-js (fixed value)
 CRYPTOJS_SALT = b"Salted__"
 
@@ -66,7 +73,7 @@ def decrypt_aes(encrypted_base64, key):
         return f"Error: {str(e)}"
 
 def get_started():
-    print("Choose the key you want to use below: \nA = " + key_a + "\nB = " + key_b + "\nC = " + key_c + "\nD = " + key_d + "\nFor Avega, please choose below:\nE = " + key_e + "\nF = " + key_f + "\nG = " + key_g +"")
+    print("Choose the key you want to use below: \nA = " + key_a + "\nB = " + key_b + "\nC = " + key_c + "\nD = " + key_d + "\nFor Avega, please choose below:\nE = " + key_e + "\nF = " + key_f + "\nG = " + key_g +"\nFor Feliza, please choose below:\nH = " + key_h +"\nI = "+ key_i + "\nJ = "+ key_j +"\nK = "+ key_k+"\nFor Beaulah with Feliza endpoint\nL = "+ key_l +"\nM = "+ key_m + "\nN = "+ key_n + "")
     while True:
         selected = input("Select:")
         if selected == "A":
@@ -89,6 +96,27 @@ def get_started():
             break
         elif selected == "G":
             key = key_g
+            break
+        elif selected == "H":
+            key = key_h
+            break
+        elif selected == "I":
+            key = key_i
+            break
+        elif selected == "J":
+            key = key_j
+            break
+        elif selected == "K":
+            key = key_k
+            break
+        elif selected == "L":
+            key = key_l
+            break
+        elif selected == "M":
+            key = key_m
+            break
+        elif selected == "N":
+            key = key_n
             break
         else:
             print("Invalid input!")
