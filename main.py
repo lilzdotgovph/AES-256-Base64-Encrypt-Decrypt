@@ -31,11 +31,15 @@ key_k = os.getenv('KEY_K')
 key_l = os.getenv('KEY_L')
 key_m = os.getenv('KEY_M')
 key_n = os.getenv('KEY_N')
+
+note_1 = os.getenv('NOTE_1')
+note_2 = os.getenv('NOTE_2')
+note_3 = os.getenv('NOTE_3')
 # Salt used by crypto-js (fixed value)
 CRYPTOJS_SALT = b"Salted__"
 
 def print_keys():
-    print("Choose the key you want to use below: \nA = " + key_a + "\nB = " + key_b + "\nC = " + key_c + "\nD = " + key_d + "\nFor Avega, please choose below:\nE = " + key_e + "\nF = " + key_f + "\nG = " + key_g +"\nFor Feliza, please choose below:\nH = " + key_h +"\nI = "+ key_i + "\nJ = "+ key_j +"\nK = "+ key_k +"\nFor Beaulah with Feliza endpoint\nL = " + key_l +"\nM = "+ key_m + "\nN = " + key_n + "")
+    print("Choose the key you want to use below: \nA = " + key_a + "\nB = " + key_b + "\nC = " + key_c + "\nD = " + key_d + "\nFor " + note_1 + ", please choose below:\nE = " + key_e + "\nF = " + key_f + "\nG = " + key_g +"\nFor "+note_2+", please choose below:\nH = " + key_h +"\nI = "+ key_i + "\nJ = "+ key_j +"\nK = "+ key_k +"\nFor " + note_3 + "\nL = " + key_l +"\nM = "+ key_m + "\nN = " + key_n + "")
 
 # Key and IV derivation function (matches crypto-js behavior)
 def derive_key_and_iv(key, salt):
@@ -242,6 +246,7 @@ def decrypt_only():
 
 def start_menu():
     print(title_banner)
+    print(f"\nDisclaimer: This tool is for educational and research purposes only.\nThe developer is not liable for any damages, data loss, or other consequences resulting from its use.\nUsers are responsible for ensuring compliance with applicable laws. The tool may be updated or discontinued at any time without notice.")
     print("\nSelect options:\n1.Extract Encrypted Strings from URL\n2.Encrypt multiple strings and output in a text file.\n3.Decrypt multiple encrypted strings and output in a text file.\n4.Encrypt\n5.Decrypt\n6.Exit")
     while True:
         choice = input("Choice:")
@@ -274,8 +279,12 @@ def handle_ctrl_z(signal, frame):
 if __name__ == "__main__":
     try:
         while True:
-            start_menu()
-            pass
+            if os.path.exists('.env'):
+                start_menu()
+                pass
+            else:
+                print(f"{Fore.RED}Error: .env file does not exist inside the folder.")
+                exit(1)
     except KeyboardInterrupt:
         print("\nExiting program...")
         sys.exit(0)
