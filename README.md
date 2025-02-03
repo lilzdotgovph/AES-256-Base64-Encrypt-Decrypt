@@ -3,7 +3,6 @@ Python script that encrypts and decrypts Base64 AES-256 based from crypto-js
 
 ## Installation of dependency
 
-1. Run command
 ```
   pip install -r requirements.txt
 ```
