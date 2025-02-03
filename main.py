@@ -2,10 +2,19 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from Crypto.Random import get_random_bytes
 from dotenv import load_dotenv
+import re,requests
 import base64
 import hashlib
 import os
+import pyfiglet
+import validators
+import signal
+import sys
+from colorama import Fore,init
 load_dotenv()
+
+init(autoreset=True)
+title_banner = pyfiglet.figlet_format("Base64 AES-256")
 
 # Variables for KEYS
 key_a = os.getenv('KEY_A')
@@ -24,6 +33,9 @@ key_m = os.getenv('KEY_M')
 key_n = os.getenv('KEY_N')
 # Salt used by crypto-js (fixed value)
 CRYPTOJS_SALT = b"Salted__"
+
+def print_keys():
+    print("Choose the key you want to use below: \nA = " + key_a + "\nB = " + key_b + "\nC = " + key_c + "\nD = " + key_d + "\nFor Avega, please choose below:\nE = " + key_e + "\nF = " + key_f + "\nG = " + key_g +"\nFor Feliza, please choose below:\nH = " + key_h +"\nI = "+ key_i + "\nJ = "+ key_j +"\nK = "+ key_k +"\nFor Beaulah with Feliza endpoint\nL = " + key_l +"\nM = "+ key_m + "\nN = " + key_n + "")
 
 # Key and IV derivation function (matches crypto-js behavior)
 def derive_key_and_iv(key, salt):
@@ -71,69 +83,199 @@ def decrypt_aes(encrypted_base64, key):
         return unpadded_text.decode('utf-8')
     except Exception as e:
         return f"Error: {str(e)}"
+    
+def check_file(input_file):
+    # Check if the file exists
+    if not os.path.exists(input_file):
+        print(f"{Fore.RED}Error: The file '{input_file}' does not exist.")
+        return False
 
-def get_started():
-    print("Choose the key you want to use below: \nA = " + key_a + "\nB = " + key_b + "\nC = " + key_c + "\nD = " + key_d + "\nFor Avega, please choose below:\nE = " + key_e + "\nF = " + key_f + "\nG = " + key_g +"\nFor Feliza, please choose below:\nH = " + key_h +"\nI = "+ key_i + "\nJ = "+ key_j +"\nK = "+ key_k+"\nFor Beaulah with Feliza endpoint\nL = "+ key_l +"\nM = "+ key_m + "\nN = "+ key_n + "")
+    # Check if the file is empty
+    if os.path.getsize(input_file) == 0:
+        print(f"{Fore.RED}Error: The file '{input_file}' is empty.")
+        return False
+    return True
+
+def extract_encrypted_strings():
     while True:
-        selected = input("Select:")
+        url = input("Provide URL:").strip()
+        if not url:
+            print(Fore.RED + "Error: No URL provided.")
+        elif not validators.url(url):
+            print(Fore.RED + "Error: Invalid URL provided.")
+        else:
+            print(f"URL: {url}")
+            try:
+                response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
+                response.raise_for_status()  # Raise an error for bad status codes
+                content = response.text
+                print(Fore.GREEN + "Fetching JavaScript file successfully.")
+                matches = re.findall(r'U2FsdGVkX18[A-Za-z0-9+/=]+', content)
+                output_file = "Extracted_Encrypted_Strings.txt"
+                o_path = os.path.abspath(output_file)
+                if matches:
+                    with open(output_file, 'w', encoding='utf-8') as outfile:
+                        outfile.write('\n'.join(matches) + '\n')
+                    print(f"{Fore.GREEN}Extracted {len(matches)} strings. Saved to {output_file}")
+                    print(f"Path:{Fore.YELLOW}{o_path}")
+                    exit(1)
+                else:
+                    print(f"{Fore.RED}No matching strings found.")
+
+            except requests.exceptions.RequestException as e:
+                print(f"{Fore.RED}Error downloading the file from the URL: {e}")
+                
+def set_key(selected):
+    while True:
         if selected == "A":
             key = key_a
-            break
+            return key
         elif selected == "B":
             key = key_b
-            break
+            return key
         elif selected == "C":
             key = key_c
-            break
+            return key
         elif selected == "D":
             key = key_d
-            break
+            return key
         elif selected == "E":
             key = key_e
-            break
+            return key
         elif selected == "F":
-            key = key_f
-            break
+            return key
         elif selected == "G":
             key = key_g
-            break
+            return key
         elif selected == "H":
             key = key_h
-            break
+            return key
         elif selected == "I":
             key = key_i
-            break
+            return key
         elif selected == "J":
             key = key_j
-            break
+            return key
         elif selected == "K":
             key = key_k
-            break
+            return key
         elif selected == "L":
             key = key_l
-            break
+            return key
         elif selected == "M":
             key = key_m
-            break
+            return key
         elif selected == "N":
             key = key_n
-            break
+            return key
         else:
             print("Invalid input!")
+
+def encrypt_multiple():
     while True:
-        selected_2 = input("Choose 1 - Encrypt , 2 - Decrypt: ")
-        if selected_2 == "1":
-            plaintext = input("Enter plaintext:")
-            encrypted_text = encrypt_aes(plaintext,key)
-            print("\nEncrypted: ", encrypted_text)
-            break
-        elif selected_2 == "2":
-            ciphertext = input("Enter ciphertext:")
-            decrypted_text = decrypt_aes(ciphertext,key)
-            print("\nDecrypted: ", decrypted_text)
-            break
-        else:
-            print("Invalid input!")
+        input_file = input(f"Enter file name (e.g, strings.txt):")
+        if check_file(input_file):
+            output_file = input("Enter output file name (e.g, output.txt):")
+            o_path = os.path.abspath(output_file)
+            print_keys()
+            choice_key = input("Select Key:")
+            key = set_key(choice_key)
+            try:
+                with open(input_file, 'r', encoding='utf-8') as infile:
+                    with open(output_file, 'w', encoding='utf-8') as outfile:
+                        for line in infile:
+                            encrypted_line = encrypt_aes(line.strip(), key) 
+                            outfile.write(encrypted_line + '\n')  
+                print(f"{Fore.GREEN}Encryption successful! Encrypted strings saved to {output_file}")
+                print(f"Path:{Fore.YELLOW}{o_path}")
+                exit(1)
+            except Exception as e:
+                print(f"{Fore.RED}Error occurred: {e}")
+
+def decrypt_multiple():
+    while True:
+        input_file = input(f"Enter file name (e.g, encrypted.txt):")
+        if check_file(input_file):
+            output_file = input("Enter output file name (e.g, output.txt):")
+            o_path = os.path.abspath(output_file)
+            print_keys()
+            choice_key = input("Select a Key:")
+            key = set_key(choice_key)
+            try:
+                with open(input_file, 'r', encoding='utf-8') as infile:
+                    with open(output_file, 'w', encoding='utf-8') as outfile:
+                        for line in infile:
+                            decrypted_line = decrypt_aes(line.strip(), key) 
+                            outfile.write(decrypted_line + '\n')
+                if "Error" in decrypted_line:
+                    print(f"{Fore.LIGHTRED_EX}Warning: Some of the decrypted value contains error. Please try using other keys instead.")
+                print(f"{Fore.GREEN}Decryption successful! Decrypted strings saved to {output_file}")
+                print(f"Path:{Fore.YELLOW}{o_path}")
+                exit(1)
+            except Exception as e:
+                print(f"{Fore.RED}Error occurred: {e}")
+
+def encrypt_only():
+    print_keys()
+    choice_key = input("Select a Key:")
+    key = set_key(choice_key)
+    plaintext = input("Enter plaintext:")
+    encrypted_text = encrypt_aes(plaintext,key)
+    print(f"{Fore.LIGHTRED_EX}Warning: Please be mindful of choosing the right key for your encryption.")
+    print(f"{Fore.GREEN}Encryption Successful...")
+    print(f"Encrypted Text:{Fore.YELLOW}{encrypted_text}")
+
+def decrypt_only():
+    print_keys()
+    choice_key = input("Select a Key:")
+    key = set_key(choice_key)
+    ciphertext = input("Enter ciphertext:")
+    decrypted_text = decrypt_aes(ciphertext,key)
+    if "Error" in decrypted_text:
+        print(f"{Fore.RED}{decrypted_text} You may want to try other key instead.")
+        decrypt_only()
+    print(f"{Fore.GREEN}Decryption Successful...")
+    print(f"Decrypted Text:{Fore.YELLOW}{decrypted_text}")
+    decrypt_only()
+
+            
+
+def start_menu():
+    print(title_banner)
+    print("\nSelect options:\n1.Extract Encrypted Strings from URL\n2.Encrypt multiple strings and output in a text file.\n3.Decrypt multiple encrypted strings and output in a text file.\n4.Encrypt\n5.Decrypt\n6.Exit")
+    while True:
+        choice = input("Choice:")
+        match choice:
+            case "1":
+                extract_encrypted_strings()
+            case "2":
+                encrypt_multiple()
+            case "3":
+                decrypt_multiple()
+            case "4":
+                encrypt_only()
+            case "5":
+                decrypt_only()
+            case "6":
+                print("Exiting Program....")
+                break
+            case _:
+                print("Invalid input, please try again.")
 
 
-get_started()
+def handle_keyboard_interrupt(signal, frame):
+    print("\nExiting program...")
+    sys.exit(0)
+
+def handle_ctrl_z(signal, frame):
+    print("\nExiting program...")
+    sys.exit(0)
+
+if __name__ == "__main__":
+    try:
+        while True:
+            start_menu()
+            pass
+    except KeyboardInterrupt:
+        print("\nExiting program...")
+        sys.exit(0)
