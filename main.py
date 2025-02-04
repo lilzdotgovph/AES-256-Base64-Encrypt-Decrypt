@@ -31,15 +31,25 @@ key_k = os.getenv('KEY_K')
 key_l = os.getenv('KEY_L')
 key_m = os.getenv('KEY_M')
 key_n = os.getenv('KEY_N')
+key_o = os.getenv('KEY_O')
+key_p = os.getenv('KEY_P')
+key_q = os.getenv('KEY_Q')
+key_r = os.getenv('KEY_R')
+key_s = os.getenv('KEY_S')
+key_t = os.getenv('KEY_T')
+key_u = os.getenv('KEY_U')
+key_v = os.getenv('KEY_V')
 
 note_1 = os.getenv('NOTE_1')
 note_2 = os.getenv('NOTE_2')
 note_3 = os.getenv('NOTE_3')
+note_4 = os.getenv('NOTE_4')
+note_5 = os.getenv('NOTE_5')
 # Salt used by crypto-js (fixed value)
 CRYPTOJS_SALT = b"Salted__"
 
 def print_keys():
-    print("Choose the key you want to use below: \nA = " + key_a + "\nB = " + key_b + "\nC = " + key_c + "\nD = " + key_d + "\nFor " + note_1 + ", please choose below:\nE = " + key_e + "\nF = " + key_f + "\nG = " + key_g +"\nFor "+note_2+", please choose below:\nH = " + key_h +"\nI = "+ key_i + "\nJ = "+ key_j +"\nK = "+ key_k +"\nFor " + note_3 + "\nL = " + key_l +"\nM = "+ key_m + "\nN = " + key_n + "")
+    print(f"Choose the key you want to use below: \nA = {key_a}\nB = {key_b}\nC = {key_c}\nD = {key_d}\nFor {note_1}, please choose below:\nE = {key_e}\nF = {key_f}\nG = {key_g}\nFor {note_2}, please choose below:\nH = {key_h}\nI = {key_i}\nJ = {key_j}\nK = {key_k}\nFor {note_3}\nL = {key_l}\nM = {key_m}\nN = {key_n}\n{note_4}\nO = {key_o}\nP = {key_p}\n{note_5}\nQ = {key_q}\nR = {key_r}\nS = {key_s}\nT = {key_t}\nU = {key_u}\nV = {key_v}")
 
 # Key and IV derivation function (matches crypto-js behavior)
 def derive_key_and_iv(key, salt):
@@ -171,6 +181,32 @@ def set_key(selected):
             return key
         elif selected == "N":
             key = key_n
+            return key
+        elif selected == "O":
+            key = key_o
+        elif selected == "P":
+            key = key_p
+            return key
+        elif selected == "Q":
+            key = key_q
+            return key
+        elif selected == "R":
+            key = key_r
+            return key
+        elif selected == "S":
+            key = key_s
+            return key
+        elif selected == "T":
+            key = key_t
+            return key
+        elif selected == "U":
+            key = key_u
+            return key
+        elif selected == "V":
+            key = key_v
+            return key
+        elif selected == "W":
+            key = key_w
             return key
         else:
             print("Invalid input!")
