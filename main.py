@@ -123,6 +123,7 @@ def extract_encrypted_strings():
                 response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
                 response.raise_for_status()  # Raise an error for bad status codes
                 content = response.text
+                print(content)
                 print(Fore.GREEN + "Fetching JavaScript file successfully.")
                 matches = re.findall(r'U2FsdGVkX18[A-Za-z0-9+/=]+', content)
                 output_file = "Extracted_Encrypted_Strings.txt"
@@ -157,6 +158,7 @@ def set_key(selected):
             key = key_e
             return key
         elif selected == "F":
+            key = key_f
             return key
         elif selected == "G":
             key = key_g
@@ -184,6 +186,7 @@ def set_key(selected):
             return key
         elif selected == "O":
             key = key_o
+            return key
         elif selected == "P":
             key = key_p
             return key
