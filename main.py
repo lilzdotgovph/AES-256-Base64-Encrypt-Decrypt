@@ -208,9 +208,6 @@ def set_key(selected):
         elif selected == "V":
             key = key_v
             return key
-        elif selected == "W":
-            key = key_w
-            return key
         else:
             print("Invalid input!")
 
