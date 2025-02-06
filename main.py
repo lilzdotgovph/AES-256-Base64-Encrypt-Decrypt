@@ -39,17 +39,20 @@ key_s = os.getenv('KEY_S')
 key_t = os.getenv('KEY_T')
 key_u = os.getenv('KEY_U')
 key_v = os.getenv('KEY_V')
+key_w = os.getenv('KEY_w')
+key_x = os.getenv('KEY_X')
 
 note_1 = os.getenv('NOTE_1')
 note_2 = os.getenv('NOTE_2')
 note_3 = os.getenv('NOTE_3')
 note_4 = os.getenv('NOTE_4')
 note_5 = os.getenv('NOTE_5')
+note_6 = os.getenv('NOTE_6')
 # Salt used by crypto-js (fixed value)
 CRYPTOJS_SALT = b"Salted__"
 
 def print_keys():
-    print(f"Choose the key you want to use below: \nA = {key_a}\nB = {key_b}\nC = {key_c}\nD = {key_d}\nFor {note_1}, please choose below:\nE = {key_e}\nF = {key_f}\nG = {key_g}\nFor {note_2}, please choose below:\nH = {key_h}\nI = {key_i}\nJ = {key_j}\nK = {key_k}\nFor {note_3}\nL = {key_l}\nM = {key_m}\nN = {key_n}\n{note_4}\nO = {key_o}\nP = {key_p}\n{note_5}\nQ = {key_q}\nR = {key_r}\nS = {key_s}\nT = {key_t}\nU = {key_u}\nV = {key_v}")
+    print(f"Choose the key you want to use below: \nA = {key_a}\nB = {key_b}\nC = {key_c}\nD = {key_d}\nFor {note_1}, please choose below:\nE = {key_e}\nF = {key_f}\nG = {key_g}\nFor {note_2}, please choose below:\nH = {key_h}\nI = {key_i}\nJ = {key_j}\nK = {key_k}\nFor {note_3}\nL = {key_l}\nM = {key_m}\nN = {key_n}\n{note_4}\nO = {key_o}\nP = {key_p}\n{note_5}\nQ = {key_q}\nR = {key_r}\nS = {key_s}\nT = {key_t}\nU = {key_u}\nV = {key_v}\nW = {key_w}\n{note_6}\nX = {key_x}")
 
 # Key and IV derivation function (matches crypto-js behavior)
 def derive_key_and_iv(key, salt):
@@ -207,6 +210,12 @@ def set_key(selected):
             return key
         elif selected == "V":
             key = key_v
+            return key
+        elif selected == "W":
+            key = key_w
+            return key
+        elif selected == "X":
+            key = key_x
             return key
         else:
             print("Invalid input!")
