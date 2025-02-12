@@ -1,6 +1,6 @@
 function MyFunc(){
-  console.log("test");
-  alert("KPMG");
+  console.log(window.location);
+  prompt("KPMG");
 }
 
 MyFunc();
