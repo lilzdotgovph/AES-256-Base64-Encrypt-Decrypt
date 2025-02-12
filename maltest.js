@@ -1,1 +1,5 @@
-<script>alert(0);</script>
+function MyFunc(){
+  alert("test");
+}
+
+MyFunc();
